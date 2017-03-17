@@ -84,6 +84,11 @@ void loop() {
 		gfx1.invertDisplay(!color);
 	}
 	if(touchRead(16) > 1500) {
+		x = 63;
+		y = 31;
+		color = WHITE;
+		gfx0.invertDisplay(false);
+		gfx1.invertDisplay(false);
 		gfx0.clearDisplay();
 		gfx1.clearDisplay();
 		gfx0.display();
