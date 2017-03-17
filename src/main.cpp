@@ -103,6 +103,8 @@ void loop() {
 			gfx0.buffer[i] = EEPROM[i + 3];
 			gfx1.buffer[i] = EEPROM[i + 3 + 1024];
 		}
+		gfx0.display();
+		gfx1.display();
 	}
 
 	if(touchRead(30) > 1500) {
