@@ -5,13 +5,13 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="0.910961921" moduleId="org.eclipse.cdt.core.settings" name="Default">
 				<externalSettings/>
 				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -24,7 +24,11 @@
 							<tool id="org.eclipse.cdt.build.core.settings.holder.1624502120" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.239157887" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/cores/teensy3"/>
+									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
+									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
+									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/src"/>
+									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ADC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Adafruit_CC3000"/>
@@ -141,7 +145,11 @@
 							<tool id="org.eclipse.cdt.build.core.settings.holder.54121539" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1096940598" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/cores/teensy3"/>
+									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
+									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
+									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/src"/>
+									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ADC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Adafruit_CC3000"/>
@@ -258,7 +266,11 @@
 							<tool id="org.eclipse.cdt.build.core.settings.holder.1310559623" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.41298875" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/cores/teensy3"/>
+									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
+									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
+									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/src"/>
+									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ADC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Adafruit_CC3000"/>
