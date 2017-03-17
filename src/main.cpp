@@ -14,7 +14,7 @@
 
 #include <t3_Adafruit_SSD1306.h>
 
-
+#define MAX_FILES 1024
 
 t3_Adafruit_SSD1306 gfx0(&Wire2);
 t3_Adafruit_SSD1306 gfx1(&Wire1);
@@ -25,6 +25,7 @@ int y = 31;
 bool blink;
 bool color = WHITE;
 
+int loaddelay = 10;
 int savedelay = 10;
 
 void setup() {
@@ -98,7 +99,13 @@ void select_save_file() {
 		idx++;
 		sprintf(buf, "%i.ets", idx);
 	}
+	if(idx == MAX_FILES)
+		return;
+	gfx0.invertDisplay(color);
+	gfx1.invertDisplay(color);
 	save_file(buf);
+	gfx0.invertDisplay(!color);
+	gfx1.invertDisplay(!color);
 }
 
 void load_file(const char *buf) {
@@ -118,9 +125,9 @@ void select_load_file() {
 	char buf[20];
 	int idx = 0;
 	sprintf(buf, "%i.ets", idx);
-	for(; idx < 256 && !SD.exists(buf); idx++)
+	for(; idx < MAX_FILES && !SD.exists(buf); idx++)
 		sprintf(buf, "%i.ets", idx);
-	if(idx == 256)
+	if(idx == MAX_FILES)
 		return;
 
 	save_file("tmp.ets");
@@ -129,16 +136,17 @@ void select_load_file() {
 	while(!invert_key()) {
 		if(reset_key()) {
 			load_file("tmp.ets");
+			SD.remove("tmp.ets");
 			return;
 		}
 		if(up_key()) {
 			idx++;
-			if(idx == 256)
+			if(idx == MAX_FILES)
 				idx = 0;
 			sprintf(buf, "%i.ets", idx);
 			while(!SD.exists(buf)) {
 				idx++;
-				if(idx == 256)
+				if(idx == MAX_FILES)
 					idx = 0;
 				sprintf(buf, "%i.ets", idx);
 			}
@@ -149,12 +157,12 @@ void select_load_file() {
 		if(down_key()) {
 			idx--;
 			if(idx == -1)
-				idx = 255;
+				idx = MAX_FILES - 1;
 			sprintf(buf, "%i.ets", idx);
 			while(!SD.exists(buf)) {
 				idx--;
 				if(idx == -1)
-					idx = 255;
+					idx = MAX_FILES - 1;
 				sprintf(buf, "%i.ets", idx);
 			}
 			load_file(buf);
@@ -166,6 +174,7 @@ void select_load_file() {
 		gfx0.display();
 	}
 	load_file(buf);
+	SD.remove("tmp.ets");
 }
 
 void set(int x, int y, bool isWhite) {
@@ -209,29 +218,15 @@ void loop() {
 	}
 
 	if(load_key()) {
-		select_load_file();
-	}
+		if(loaddelay == 0)
+			select_load_file();
+		loaddelay--;
+	} else
+		loaddelay = 10;
 
 	if(save_key()) {
-		if(savedelay == 0) {
-			gfx0.invertDisplay(color);
-			gfx1.invertDisplay(color);
+		if(savedelay == 0)
 			select_save_file();
-/*
-			EEPROM.begin();
-			EEPROM.write(0, x);
-			EEPROM.write(1, y);
-			EEPROM.write(2, color);
-			for(int i = 0; i < 1024; i++) {
-				EEPROM.write(i + 3, gfx0.buffer[i]);
-				EEPROM.write(i + 3 + 1024, gfx1.buffer[i]);
-			}
-			EEPROM.end();
-*/
-			delay(200);
-			gfx0.invertDisplay(!color);
-			gfx1.invertDisplay(!color);
-		}
 		savedelay--;
 	} else
 		savedelay = 10;
