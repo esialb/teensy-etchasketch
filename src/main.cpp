@@ -6,6 +6,7 @@
  */
 
 #include <Arduino.h>
+#include <EEPROM.h>
 #include <i2c_t3.h>
 
 #include <t3_Adafruit_SSD1306.h>
@@ -87,6 +88,28 @@ void loop() {
 		gfx1.clearDisplay();
 		gfx0.display();
 		gfx1.display();
+	}
+
+	if(touchRead(29) > 1500) {
+		x = EEPROM[0];
+		y = EEPROM[1];
+		color = EEPROM[2];
+		for(int i = 0; i < 1024; i++) {
+			gfx0.buffer[i] = EEPROM[i + 3];
+			gfx1.buffer[i] = EEPROM[i + 3 + 1024];
+		}
+	}
+
+	if(touchRead(30) > 1500) {
+		EEPROM.begin();
+		EEPROM.write(0, x);
+		EEPROM.write(1, y);
+		EEPROM.write(2, color);
+		for(int i = 0; i < 1024; i++) {
+			EEPROM.write(i + 3, gfx0.buffer[i]);
+			EEPROM.write(i + 3 + 1024, gfx1.buffer[i]);
+		}
+		EEPROM.end();
 	}
 
 	if(x < 128 || x == 128 || x == 255)
