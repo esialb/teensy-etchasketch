@@ -19,7 +19,7 @@ int x = 63;
 int y = 31;
 
 bool blink;
-int color = WHITE;
+bool color = WHITE;
 
 void setup() {
 	gfx0.begin();
@@ -75,7 +75,7 @@ void loop() {
 		y += (u ? -1 : 0) + (d ? 1 : 0);
 		x += (x < 0 ? 256 : 0) + (x >= 256 ? -256 : 0);
 		y += (y < 0 ? 64 : 0) + (y >= 64 ? -64 : 0);
-		set(x, y, blink);
+		set(x, y, !color);
 	}
 	if(touchRead(17) > 1500) {
 		color = (color == BLACK) ? WHITE : BLACK;
