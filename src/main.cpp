@@ -14,19 +14,38 @@
 
 #include <t3_Adafruit_SSD1306.h>
 
-#define MAX_FILES 1024
+#define MAX_FILES 100
+
+#define SCREEN_BUFFER_SIZE 1024
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define CANVAS_WIDTH 256
+#define CANVAS_HEIGHT 64
+#define LOAD_SAVE_DELAY 10
+
+#define TMP_FILE "tmp.ets"
+
+#define UP_KEY 23
+#define RIGHT_KEY 22
+#define DOWN_KEY 18
+#define LEFT_KEY 19
+#define INVERT_KEY 17
+#define RESET_KEY 16
+#define LOAD_KEY 29
+#define SAVE_KEY 30
+#define KEY_CAPACITANCE 1500
 
 t3_Adafruit_SSD1306 gfx0(&Wire2);
 t3_Adafruit_SSD1306 gfx1(&Wire1);
 
-int x = 63;
-int y = 31;
+int x = SCREEN_WIDTH / 2;
+int y = SCREEN_HEIGHT / 2;
 
 bool blink;
 bool color = WHITE;
 
-int loaddelay = 10;
-int savedelay = 10;
+int loaddelay = LOAD_SAVE_DELAY;
+int savedelay = LOAD_SAVE_DELAY;
 
 void setup() {
 	gfx0.begin();
@@ -50,35 +69,35 @@ void setup() {
 }
 
 bool up_key() {
-	return touchRead(23) > 1500;
+	return touchRead(UP_KEY) > KEY_CAPACITANCE;
 }
 
 bool right_key() {
-	return touchRead(22) > 1500;
+	return touchRead(RIGHT_KEY) > KEY_CAPACITANCE;
 }
 
 bool down_key() {
-	return touchRead(18) > 1500;
+	return touchRead(DOWN_KEY) > KEY_CAPACITANCE;
 }
 
 bool left_key() {
-	return touchRead(19) > 1500;
+	return touchRead(LEFT_KEY) > KEY_CAPACITANCE;
 }
 
 bool invert_key() {
-	return touchRead(17) > 1500;
+	return touchRead(INVERT_KEY) > KEY_CAPACITANCE;
 }
 
 bool reset_key() {
-	return touchRead(16) > 1500;
+	return touchRead(RESET_KEY) > KEY_CAPACITANCE;
 }
 
 bool load_key() {
-	return touchRead(29) > 1500;
+	return touchRead(LOAD_KEY) > KEY_CAPACITANCE;
 }
 
 bool save_key() {
-	return touchRead(30) > 1500;
+	return touchRead(SAVE_KEY) > KEY_CAPACITANCE;
 }
 
 void save_file(const char *buf) {
@@ -86,9 +105,22 @@ void save_file(const char *buf) {
 	file.write(x);
 	file.write(y);
 	file.write(color);
-	file.write(gfx0.buffer, 1024);
-	file.write(gfx1.buffer, 1024);
+	file.write(gfx0.buffer, SCREEN_BUFFER_SIZE);
+	file.write(gfx1.buffer, SCREEN_BUFFER_SIZE);
 	file.close();
+}
+
+void load_file(const char *buf) {
+	File file = SD.open(buf, FILE_READ);
+	x = file.read();
+	y = file.read();
+	color = file.read();
+	file.read(gfx0.buffer, SCREEN_BUFFER_SIZE);
+	file.read(gfx1.buffer, SCREEN_BUFFER_SIZE);
+	gfx0.display();
+	gfx1.display();
+	gfx0.invertDisplay(!color);
+	gfx1.invertDisplay(!color);
 }
 
 void select_save_file() {
@@ -99,8 +131,18 @@ void select_save_file() {
 		idx++;
 		sprintf(buf, "%i.ets", idx);
 	}
-	if(idx == MAX_FILES)
+	if(idx == MAX_FILES) {
+		save_file(TMP_FILE);
+		gfx0.setCursor(0, 0);
+		gfx0.print("SD card full");
+		gfx0.display();
+		while(!reset_key())
+			;
+		while(reset_key());
+		load_file(TMP_FILE);
+		SD.remove(TMP_FILE);
 		return;
+	}
 	gfx0.invertDisplay(color);
 	gfx1.invertDisplay(color);
 	save_file(buf);
@@ -108,62 +150,49 @@ void select_save_file() {
 	gfx1.invertDisplay(!color);
 }
 
-void load_file(const char *buf) {
-	File file = SD.open(buf, FILE_READ);
-	x = file.read();
-	y = file.read();
-	color = file.read();
-	file.read(gfx0.buffer, 1024);
-	file.read(gfx1.buffer, 1024);
-	gfx0.display();
-	gfx1.display();
-	gfx0.invertDisplay(!color);
-	gfx1.invertDisplay(!color);
+void ets_file(char *buf, int idx) {
+	sprintf(buf, "%i.ets", idx);
 }
 
 void select_load_file() {
 	char buf[20];
 	int idx = 0;
-	sprintf(buf, "%i.ets", idx);
+	ets_file(buf, idx);
 	for(; idx < MAX_FILES && !SD.exists(buf); idx++)
-		sprintf(buf, "%i.ets", idx);
+		ets_file(buf, idx);
 	if(idx == MAX_FILES)
 		return;
 
-	save_file("tmp.ets");
+	save_file(TMP_FILE);
 	load_file(buf);
 
 	while(!invert_key()) {
 		if(reset_key()) {
-			load_file("tmp.ets");
+			load_file(TMP_FILE);
 			SD.remove("tmp.ets");
 			return;
 		}
 		if(up_key()) {
-			idx++;
-			if(idx == MAX_FILES)
+			if(++idx == MAX_FILES)
 				idx = 0;
-			sprintf(buf, "%i.ets", idx);
+			ets_file(buf, idx);
 			while(!SD.exists(buf)) {
-				idx++;
-				if(idx == MAX_FILES)
+				if(++idx == MAX_FILES)
 					idx = 0;
-				sprintf(buf, "%i.ets", idx);
+				ets_file(buf, idx);
 			}
 			load_file(buf);
 			while(up_key())
 				;
 		}
 		if(down_key()) {
-			idx--;
-			if(idx == -1)
+			if(--idx == -1)
 				idx = MAX_FILES - 1;
-			sprintf(buf, "%i.ets", idx);
+			ets_file(buf, idx);
 			while(!SD.exists(buf)) {
-				idx--;
-				if(idx == -1)
+				if(--idx == -1)
 					idx = MAX_FILES - 1;
-				sprintf(buf, "%i.ets", idx);
+				ets_file(buf, idx);
 			}
 			load_file(buf);
 			while(down_key())
@@ -174,14 +203,14 @@ void select_load_file() {
 		gfx0.display();
 	}
 	load_file(buf);
-	SD.remove("tmp.ets");
+	SD.remove(TMP_FILE);
 }
 
 void set(int x, int y, bool isWhite) {
-	if(x < 128)
+	if(x < SCREEN_WIDTH)
 		gfx0.drawPixel(x, y, isWhite);
 	else
-		gfx1.drawPixel(x - 128, y, isWhite);
+		gfx1.drawPixel(x - SCREEN_WIDTH, y, isWhite);
 }
 
 void loop() {
@@ -196,8 +225,8 @@ void loop() {
 		set(x, y, color);
 		x += (l ? -1 : 0) + (r ? 1 : 0);
 		y += (u ? -1 : 0) + (d ? 1 : 0);
-		x += (x < 0 ? 256 : 0) + (x >= 256 ? -256 : 0);
-		y += (y < 0 ? 64 : 0) + (y >= 64 ? -64 : 0);
+		x += (x < 0 ? CANVAS_WIDTH : 0) + (x >= CANVAS_WIDTH ? -CANVAS_WIDTH : 0);
+		y += (y < 0 ? CANVAS_HEIGHT : 0) + (y >= CANVAS_HEIGHT ? -CANVAS_HEIGHT : 0);
 		set(x, y, !color);
 	}
 	if(invert_key()) {
@@ -206,8 +235,8 @@ void loop() {
 		gfx1.invertDisplay(!color);
 	}
 	if(reset_key()) {
-		x = 63;
-		y = 31;
+		x = SCREEN_WIDTH / 2;
+		y = SCREEN_HEIGHT / 2;
 		color = WHITE;
 		gfx0.invertDisplay(false);
 		gfx1.invertDisplay(false);
@@ -222,20 +251,19 @@ void loop() {
 			select_load_file();
 		loaddelay--;
 	} else
-		loaddelay = 10;
+		loaddelay = LOAD_SAVE_DELAY;
 
 	if(save_key()) {
 		if(savedelay == 0)
 			select_save_file();
 		savedelay--;
 	} else
-		savedelay = 10;
+		savedelay = LOAD_SAVE_DELAY;
 
-	if(x < 128 || x == 128 || x == 255)
+	if(x < SCREEN_WIDTH || x == SCREEN_WIDTH || x == CANVAS_WIDTH - 1)
 		gfx0.display();
-	if(x >= 128 || x == 0 || x == 127)
+	if(x >= SCREEN_WIDTH || x == 0 || x == SCREEN_WIDTH - 1)
 		gfx1.display();
 
 	blink = !blink;
-//	gfx1.display();
 }
