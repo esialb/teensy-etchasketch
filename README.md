@@ -17,9 +17,9 @@ Touch Pins:
 | 18 | D-PAD down touch contact |
 | 19 | D-PAD left touch contact |
 | 17 | INVERT touch contact |
-| 16 | RESET left touch contact |
+| 16 | RESET touch contact |
 | 29 | LOAD touch contact |
-| 30 | SAVE left touch contact |
+| 30 | SAVE touch contact |
 
 I2C Pins:
 
