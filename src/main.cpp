@@ -106,13 +106,15 @@ void load_file() {
 	if(idx == 256)
 		return;
 
-	gfx0.clearDisplay();
-	gfx1.clearDisplay();
-	gfx0.invertDisplay(false);
-	gfx1.invertDisplay(false);
+	uint8_t line1[128];
+	memcpy(line1, gfx0.buffer, 128);
+	memset(gfx0.buffer, 0, 128);
+
 	while(!invert_key()) {
-		if(reset_key())
+		if(reset_key()) {
+			memcpy(gfx0.buffer, line1, 128);
 			return;
+		}
 		if(up_key()) {
 			idx++;
 			if(idx == 256)
@@ -141,7 +143,7 @@ void load_file() {
 			while(down_key())
 				;
 		}
-		gfx0.clearDisplay();
+		memset(gfx0.buffer, 0, 128);
 		gfx0.setCursor(0, 0);
 		gfx0.print(buf);
 		gfx0.display();
