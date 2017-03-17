@@ -28,7 +28,6 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/src"/>
-									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ADC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Adafruit_CC3000"/>
@@ -54,7 +53,6 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DS1307RTC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DmxSimple"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DogLcd"/>
-									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EasyTransfer"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EasyTransferI2C"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Encoder"/>
@@ -124,11 +122,11 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Wire/utility"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/XBee"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/XPT2046_Touchscreen"/>
-									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ks0108"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/openGLCD"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ssd1351"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/x10"/>
+									<listOptionValue builtIn="false" value="&quot;${HOME}/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.922107295" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="F_CPU=180000000L"/>
@@ -149,7 +147,6 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/src"/>
-									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ADC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Adafruit_CC3000"/>
@@ -175,7 +172,6 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DS1307RTC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DmxSimple"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DogLcd"/>
-									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EasyTransfer"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EasyTransferI2C"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Encoder"/>
@@ -245,11 +241,11 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Wire/utility"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/XBee"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/XPT2046_Touchscreen"/>
-									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ks0108"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/openGLCD"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ssd1351"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/x10"/>
+									<listOptionValue builtIn="false" value="&quot;${HOME}/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.1198905600" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="F_CPU=180000000L"/>
@@ -270,7 +266,6 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/src"/>
-									<listOptionValue builtIn="false" value="${HOME}/workspaces/teensy/repos/teensy-etchasketch/lib/Adafruit-GFX-Library"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ADC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Adafruit_CC3000"/>
@@ -296,7 +291,6 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DS1307RTC"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DmxSimple"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/DogLcd"/>
-									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EasyTransfer"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/EasyTransferI2C"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Encoder"/>
@@ -366,11 +360,11 @@
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/Wire/utility"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/XBee"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/XPT2046_Touchscreen"/>
-									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/i2c_t3"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ks0108"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/openGLCD"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/ssd1351"/>
 									<listOptionValue builtIn="false" value="${HOME}/.platformio/packages/framework-arduinoteensy/libraries/x10"/>
+									<listOptionValue builtIn="false" value="&quot;${HOME}/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.884639970" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="F_CPU=180000000L"/>
