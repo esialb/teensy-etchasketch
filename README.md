@@ -4,6 +4,8 @@ Simple etch-a-sketch project using a [Teensy 3.6](https://www.pjrc.com/store/tee
 
 Rather than the .ino files of an Arduino IDE sketch, this project is built with [PlatformIO](http://platformio.org/).  PlatformIO is a much better system for larger projects where the term "sketch" no longer really applies.
 
+This project uses a modified version of the [Adafruit SSD1306](https://github.com/adafruit/Adafruit_SSD1306) library, updated to use the Teensy t3_i2c library.
+
 <img src="doc/IMG_1209.JPG" width="600"/>
 
 ## Pin Connections
