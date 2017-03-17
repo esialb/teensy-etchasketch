@@ -68,35 +68,35 @@ void setup() {
 	}
 }
 
-bool up_key() {
+bool is_up_key() {
 	return touchRead(UP_KEY) > KEY_CAPACITANCE;
 }
 
-bool right_key() {
+bool is_right_key() {
 	return touchRead(RIGHT_KEY) > KEY_CAPACITANCE;
 }
 
-bool down_key() {
+bool is_down_key() {
 	return touchRead(DOWN_KEY) > KEY_CAPACITANCE;
 }
 
-bool left_key() {
+bool is_left_key() {
 	return touchRead(LEFT_KEY) > KEY_CAPACITANCE;
 }
 
-bool invert_key() {
+bool is_invert_key() {
 	return touchRead(INVERT_KEY) > KEY_CAPACITANCE;
 }
 
-bool reset_key() {
+bool is_reset_key() {
 	return touchRead(RESET_KEY) > KEY_CAPACITANCE;
 }
 
-bool load_key() {
+bool is_load_key() {
 	return touchRead(LOAD_KEY) > KEY_CAPACITANCE;
 }
 
-bool save_key() {
+bool is_save_key() {
 	return touchRead(SAVE_KEY) > KEY_CAPACITANCE;
 }
 
@@ -136,9 +136,9 @@ void select_save_file() {
 		gfx0.setCursor(0, 0);
 		gfx0.print("SD card full");
 		gfx0.display();
-		while(!reset_key())
+		while(!is_reset_key())
 			;
-		while(reset_key());
+		while(is_reset_key());
 		load_file(TMP_FILE);
 		SD.remove(TMP_FILE);
 		return;
@@ -166,13 +166,13 @@ void select_load_file() {
 	save_file(TMP_FILE);
 	load_file(buf);
 
-	while(!invert_key()) {
-		if(reset_key()) {
+	while(!is_invert_key()) {
+		if(is_reset_key()) {
 			load_file(TMP_FILE);
 			SD.remove("tmp.ets");
 			return;
 		}
-		if(up_key()) {
+		if(is_up_key()) {
 			if(++idx == MAX_FILES)
 				idx = 0;
 			ets_file(buf, idx);
@@ -182,10 +182,10 @@ void select_load_file() {
 				ets_file(buf, idx);
 			}
 			load_file(buf);
-			while(up_key())
+			while(is_up_key())
 				;
 		}
-		if(down_key()) {
+		if(is_down_key()) {
 			if(--idx == -1)
 				idx = MAX_FILES - 1;
 			ets_file(buf, idx);
@@ -195,7 +195,7 @@ void select_load_file() {
 				ets_file(buf, idx);
 			}
 			load_file(buf);
-			while(down_key())
+			while(is_down_key())
 				;
 		}
 		gfx0.setCursor(0, 0);
@@ -214,10 +214,10 @@ void set(int x, int y, bool isWhite) {
 }
 
 void loop() {
-	bool u = up_key();
-	bool d = down_key();
-	bool l = left_key();
-	bool r = right_key();
+	bool u = is_up_key();
+	bool d = is_down_key();
+	bool l = is_left_key();
+	bool r = is_right_key();
 
 	set(x, y, blink);
 
@@ -229,12 +229,12 @@ void loop() {
 		y += (y < 0 ? CANVAS_HEIGHT : 0) + (y >= CANVAS_HEIGHT ? -CANVAS_HEIGHT : 0);
 		set(x, y, !color);
 	}
-	if(invert_key()) {
+	if(is_invert_key()) {
 		color = (color == BLACK) ? WHITE : BLACK;
 		gfx0.invertDisplay(!color);
 		gfx1.invertDisplay(!color);
 	}
-	if(reset_key()) {
+	if(is_reset_key()) {
 		x = SCREEN_WIDTH / 2;
 		y = SCREEN_HEIGHT / 2;
 		color = WHITE;
@@ -246,14 +246,14 @@ void loop() {
 		gfx1.display();
 	}
 
-	if(load_key()) {
+	if(is_load_key()) {
 		if(loaddelay == 0)
 			select_load_file();
 		loaddelay--;
 	} else
 		loaddelay = LOAD_SAVE_DELAY;
 
-	if(save_key()) {
+	if(is_save_key()) {
 		if(savedelay == 0)
 			select_save_file();
 		savedelay--;
