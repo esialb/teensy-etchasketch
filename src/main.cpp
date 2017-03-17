@@ -54,38 +54,33 @@ bool left() {
 	return touchRead(19) > 1500;
 }
 
+void set(int x, int y, bool isWhite) {
+	if(x < 128)
+		gfx0.drawPixel(x, y, isWhite);
+	else
+		gfx1.drawPixel(x - 128, y, isWhite);
+}
+
 void loop() {
 	bool u = up();
 	bool d = down();
 	bool l = left();
 	bool r = right();
-/*
-	if(u)
-		gfx1.drawTriangle(64, 0, 48, 16, 80, 16, WHITE);
-	if(d)
-		gfx1.drawTriangle(64, 63, 48, 47, 80, 47, WHITE);
-	if(l)
-		gfx1.drawTriangle(0, 32, 16, 16, 16, 48, WHITE);
-	if(r)
-		gfx1.drawTriangle(127, 32, 111, 16, 111, 48, WHITE);
-*/
+
+	set(x, y, blink);
 
 	if(u || d || l || r) {
-		if(x < 128) {
-			gfx0.drawPixel(x, y, color);
-		} else {
-			gfx1.drawPixel(x - 128, y, color);
-		}
+		set(x, y, color);
 		x += (l ? -1 : 0) + (r ? 1 : 0);
 		y += (u ? -1 : 0) + (d ? 1 : 0);
 		x += (x < 0 ? 256 : 0) + (x >= 256 ? -256 : 0);
 		y += (y < 0 ? 64 : 0) + (y >= 64 ? -64 : 0);
+		set(x, y, blink);
 	}
 	if(touchRead(17) > 1500) {
 		color = (color == BLACK) ? WHITE : BLACK;
 		gfx0.invertDisplay(!color);
 		gfx1.invertDisplay(!color);
-
 	}
 	if(touchRead(16) > 1500) {
 		gfx0.clearDisplay();
@@ -93,15 +88,10 @@ void loop() {
 		gfx0.display();
 		gfx1.display();
 	}
-	if(x < 128) {
-		gfx0.drawPixel(x, y, blink ? WHITE : BLACK);
-	} else {
-		gfx1.drawPixel(x - 128, y, blink ? WHITE : BLACK);
-	}
 
-	if(x < 128 || x == 0 || x == 255)
+	if(x < 128 || x == 128 || x == 255)
 		gfx0.display();
-	if(x >= 128 || x == 0 || x == 255)
+	if(x >= 128 || x == 0 || x == 127)
 		gfx1.display();
 
 	blink = !blink;
