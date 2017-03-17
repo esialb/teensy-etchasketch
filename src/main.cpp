@@ -22,6 +22,8 @@ int y = 31;
 bool blink;
 bool color = WHITE;
 
+int savedelay = 10;
+
 void setup() {
 	gfx0.begin();
 	gfx1.begin();
@@ -110,16 +112,25 @@ void loop() {
 	}
 
 	if(touchRead(30) > 1500) {
-		EEPROM.begin();
-		EEPROM.write(0, x);
-		EEPROM.write(1, y);
-		EEPROM.write(2, color);
-		for(int i = 0; i < 1024; i++) {
-			EEPROM.write(i + 3, gfx0.buffer[i]);
-			EEPROM.write(i + 3 + 1024, gfx1.buffer[i]);
+		if(savedelay == 0) {
+			gfx0.invertDisplay(color);
+			gfx1.invertDisplay(color);
+			EEPROM.begin();
+			EEPROM.write(0, x);
+			EEPROM.write(1, y);
+			EEPROM.write(2, color);
+			for(int i = 0; i < 1024; i++) {
+				EEPROM.write(i + 3, gfx0.buffer[i]);
+				EEPROM.write(i + 3 + 1024, gfx1.buffer[i]);
+			}
+			EEPROM.end();
+			delay(200);
+			gfx0.invertDisplay(!color);
+			gfx1.invertDisplay(!color);
 		}
-		EEPROM.end();
-	}
+		savedelay--;
+	} else
+		savedelay = 10;
 
 	if(x < 128 || x == 128 || x == 255)
 		gfx0.display();
