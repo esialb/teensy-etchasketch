@@ -105,6 +105,8 @@ void loop() {
 		}
 		gfx0.display();
 		gfx1.display();
+		gfx0.invertDisplay(!color);
+		gfx1.invertDisplay(!color);
 	}
 
 	if(touchRead(30) > 1500) {
