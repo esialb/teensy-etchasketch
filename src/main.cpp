@@ -80,14 +80,7 @@ bool save_key() {
 	return touchRead(30) > 1500;
 }
 
-void save_file() {
-	char buf[20];
-	int idx = 0;
-	sprintf(buf, "%i.ets", idx);
-	while(SD.exists(buf)) {
-		idx++;
-		sprintf(buf, "%i.ets", idx);
-	}
+void save_file(const char *buf) {
 	File file = SD.open(buf, FILE_WRITE);
 	file.write(x);
 	file.write(y);
@@ -97,7 +90,31 @@ void save_file() {
 	file.close();
 }
 
-void load_file() {
+void select_save_file() {
+	char buf[20];
+	int idx = 0;
+	sprintf(buf, "%i.ets", idx);
+	while(SD.exists(buf)) {
+		idx++;
+		sprintf(buf, "%i.ets", idx);
+	}
+	save_file(buf);
+}
+
+void load_file(const char *buf) {
+	File file = SD.open(buf, FILE_READ);
+	x = file.read();
+	y = file.read();
+	color = file.read();
+	file.read(gfx0.buffer, 1024);
+	file.read(gfx1.buffer, 1024);
+	gfx0.display();
+	gfx1.display();
+	gfx0.invertDisplay(!color);
+	gfx1.invertDisplay(!color);
+}
+
+void select_load_file() {
 	char buf[20];
 	int idx = 0;
 	sprintf(buf, "%i.ets", idx);
@@ -106,13 +123,12 @@ void load_file() {
 	if(idx == 256)
 		return;
 
-	uint8_t line1[128];
-	memcpy(line1, gfx0.buffer, 128);
-	memset(gfx0.buffer, 0, 128);
+	save_file("tmp.ets");
+	load_file(buf);
 
 	while(!invert_key()) {
 		if(reset_key()) {
-			memcpy(gfx0.buffer, line1, 128);
+			load_file("tmp.ets");
 			return;
 		}
 		if(up_key()) {
@@ -126,6 +142,7 @@ void load_file() {
 					idx = 0;
 				sprintf(buf, "%i.ets", idx);
 			}
+			load_file(buf);
 			while(up_key())
 				;
 		}
@@ -140,20 +157,15 @@ void load_file() {
 					idx = 255;
 				sprintf(buf, "%i.ets", idx);
 			}
+			load_file(buf);
 			while(down_key())
 				;
 		}
-		memset(gfx0.buffer, 0, 128);
 		gfx0.setCursor(0, 0);
 		gfx0.print(buf);
 		gfx0.display();
 	}
-	File file = SD.open(buf, FILE_READ);
-	x = file.read();
-	y = file.read();
-	color = file.read();
-	file.read(gfx0.buffer, 1024);
-	file.read(gfx1.buffer, 1024);
+	load_file(buf);
 }
 
 void set(int x, int y, bool isWhite) {
@@ -197,18 +209,14 @@ void loop() {
 	}
 
 	if(load_key()) {
-		load_file();
-		gfx0.display();
-		gfx1.display();
-		gfx0.invertDisplay(!color);
-		gfx1.invertDisplay(!color);
+		select_load_file();
 	}
 
 	if(save_key()) {
 		if(savedelay == 0) {
 			gfx0.invertDisplay(color);
 			gfx1.invertDisplay(color);
-			save_file();
+			select_save_file();
 /*
 			EEPROM.begin();
 			EEPROM.write(0, x);
