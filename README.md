@@ -6,7 +6,7 @@ Rather than the .ino files of an Arduino IDE sketch, this project is built with 
 
 This project uses a modified version of the [Adafruit SSD1306](https://github.com/adafruit/Adafruit_SSD1306) library, updated to use the Teensy t3_i2c library.
 
-<img src="doc/IMG_1209.JPG" width="600"/>
+![breadboard](doc/IMG_1209.JPG)
 
 ## Pin Connections
 
